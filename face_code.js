@@ -8,14 +8,13 @@
  */
 
 
-function drawFace1(waviness, faceShape, faceType, xIncrement, eyeType, faceHeight, backgroundCol) {
+function drawFace1(waviness, faceShape, faceType, eyeType, eyePositionX, eyePositionY, faceHeight, xIncrement, backgroundCol) {
 
   //Background Colour
   if (backgroundCol < .2) {
     rectMode(CENTER);
     fill(91, 121, 148);
     noStroke();
-    strokeCap(SQUARE);
     rect(0, 0, 20, 20);
   }
 
@@ -44,7 +43,7 @@ function drawFace1(waviness, faceShape, faceType, xIncrement, eyeType, faceHeigh
       for (let xPos = 0; xPos <= 4.0; xPos += 4 / xIncrement) {
         stroke(242, 76, 61, random(50, 200));
 
-        // Wavines distorts the vertices of the lines by a small ammount. (random is used twice so that each point of the line is randomised.)
+        // WavinesS distorts the vertices of the lines by a small ammount. (random is used twice so that each point of the line is randomised.)
         curveVertex(xPos, random(-waviness, waviness));
       }
       curveVertex(5, 0);
@@ -222,18 +221,16 @@ function drawFace1(waviness, faceShape, faceType, xIncrement, eyeType, faceHeigh
   endShape();
 
 
-  let parallaxX = (mouseX - (width / 2)) / 1000;
-  let parallaxY = (mouseY - (height / 2)) / 1000;
 
 
   //Circular Eyes
   function eyeCircle() {
-    ellipse(-1 + parallaxX, 0 + parallaxY, .5, .5);
-    ellipse(1 + parallaxX, 0 + parallaxY, .5, .5);
+    ellipse(-1 + eyePositionX, 0 + eyePositionY, .5, .5);
+    ellipse(1 + eyePositionX, 0 + eyePositionY, .5, .5);
 
     fill(0);
-    ellipse(-1 + parallaxX, 0 + parallaxY, .2, .2);
-    ellipse(1 + parallaxX, 0 + parallaxY, .2, .2);
+    ellipse(-1 + eyePositionX, 0 + eyePositionY, .2, .2);
+    ellipse(1 + eyePositionX, 0 + eyePositionY, .2, .2);
   }
 
   // Elliptical Eyes
@@ -262,18 +259,18 @@ function drawFace1(waviness, faceShape, faceType, xIncrement, eyeType, faceHeigh
   } else {
 
     push();
-    translate(-1 - parallaxX, 0 - parallaxY);
+    translate(-1 -eyePositionX, 0 - eyePositionY);
     eyeEllipse();
     pop();
 
     push();
-    translate(1 - parallaxX, 0 - parallaxY);
+    translate(1 - eyePositionX, 0 - eyePositionY);
     eyeEllipse();
     pop();
 
     fill(0);
-    ellipse(-1 - parallaxX, 0 - parallaxY, .2, .2);
-    ellipse(1 - parallaxX, 0 - parallaxY, .2, .2);
+    ellipse(-1 - eyePositionX, 0 - eyePositionY, .2, .2);
+    ellipse(1 - eyePositionX, 0 - eyePositionY, .2, .2);
   }
   pop();
 }
