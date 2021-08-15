@@ -2,9 +2,10 @@
  * This program draws your arrangement of faces on the canvas.
  */
 
-const canvasWidth = 1080;
-const canvasHeight = 1080;
+const canvasWidth = 1920;
+const canvasHeight = 1920;
 let curRandomSeed = 0;
+
 
 let lastSwapTime = 0;
 const millisPerSwap = 3000;
@@ -12,6 +13,7 @@ const millisPerSwap = 3000;
 function setup () {
   // create the drawing canvas, save the canvas element
 createCanvas(canvasWidth, canvasHeight);
+
 
 
   curRandomSeed = int(random(0, 1000));
@@ -33,6 +35,8 @@ function draw () {
     changeRandomSeed();
   }
 
+  let widthUnit = width/960;
+
   // reset the random number generator each time draw is called
   randomSeed(curRandomSeed);
 
@@ -40,16 +44,18 @@ function draw () {
   background(bg_color1);
   noStroke();
 
+  let spacing = 250 * widthUnit;
+
   //draw a grid of faces, spaced apart by exactly the width and height of each face.
-  for (let i=-300; i<=300; i+=300){ 
+  for (let i=-spacing; i<=spacing; i+=spacing){ 
       push();
       translate((width/2), 0);
       translate(i,0)
-    for (let z = -300; z<=0; z+=300) {
+    for (let z = -spacing; z<=0; z+=spacing) {
       push();
-      translate(0, (height/2)+150);
+      translate(0, (height/2)+spacing/2);
       translate(0,z)
-      scale(15);
+      scale(spacing/20);
       let faceShape = random(0,1);
       let faceType = random(0, 1);
       let waviness = random(0, .5);
