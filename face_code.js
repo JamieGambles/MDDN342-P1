@@ -11,12 +11,65 @@
 function drawFace1(waviness, faceShape, faceType, eyeType, eyePositionX, eyePositionY, faceHeight, xIncrement, backgroundCol) {
 
   //Background Colour
-  if (backgroundCol < .2) {
+  if (backgroundCol < .3) {
     rectMode(CENTER);
     fill(91, 121, 148);
+    stroke(91,121,148);
+    strokeWeight(.1);
     noStroke();
     rect(0, 0, 20, 20);
   }
+
+    //shadow
+    push();
+    translate(0, 5);
+  
+    let shadowOpacity = 80 + (faceHeight * 10);
+    let shadowOpacityIncrement = shadowOpacity / 5;
+    let shadowColr = 91;
+    let shadowColg = 121;
+    let shadowColb = 148;
+  
+  
+    // Changes the colour of the shadow to be darker if the background colour is blue
+    if (backgroundCol < .2) {
+      shadowColr = 0;
+      shadowColg = 0;
+      shadowColb = 0;
+    }
+  
+    fill(shadowColr, shadowColg, shadowColb, shadowOpacity);
+    noStroke();
+    ellipse(0, 0, 4, 1);
+    strokeWeight(.1)
+    noFill();
+  
+    // Draws circles with stroke opacity decreasing to create a gradient
+    for (let i = .5; i <= 5; i++) {
+      stroke(shadowColr, shadowColg, shadowColb, shadowOpacity - (i * shadowOpacityIncrement));
+      ellipse(0, 0, 4 + (i / 5), 1 + (i / 5));
+    }
+    pop();
+  
+  
+    // Legs
+    noFill();
+    strokeWeight(.2);
+    stroke(242, 76, 61, 250);
+    strokeCap(ROUND);
+    strokeJoin(ROUND);
+  
+    beginShape();
+    vertex(-.5, faceHeight);
+    vertex(-.5, 5);
+    vertex(-1, 5);
+    endShape();
+  
+    beginShape();
+    vertex(.5, faceHeight);
+    vertex(.5, 5);
+    vertex(1, 5);
+    endShape();
 
   // Hairy Circle
   function linesCircle(waviness, xIncrement, faceHeight) {
@@ -108,7 +161,7 @@ function drawFace1(waviness, faceShape, faceType, eyeType, eyePositionX, eyePosi
     translate(0, faceHeight);
 
     noStroke();
-    fill(242, 76, 61, 250);
+    fill(242, 76, 61);
     ellipse(0, 0, 5, 5);
 
     pop();
@@ -123,7 +176,7 @@ function drawFace1(waviness, faceShape, faceType, eyeType, eyePositionX, eyePosi
 
     rectMode(CENTER);
     noStroke();
-    fill(242, 76, 61, 250);
+    fill(242, 76, 61);
     rect(0, 0, 5, 5);
 
     pop();
@@ -137,18 +190,19 @@ function drawFace1(waviness, faceShape, faceType, eyeType, eyePositionX, eyePosi
     translate(0, faceHeight);
 
     fill(242, 76, 61);
-    stroke(242, 76, 61, 250);
+    stroke(242, 76, 61);
     ellipse(0, 0, 4, 4);
     strokeWeight(.1)
     noFill();
 
     // Draws circles with stroke opacity decreasing to create a gradient
     for (let i = 0; i <= 5; i++) {
-      stroke(242, 76, 61, 250 - (i * 50));
+      stroke(242, 76, 61, 255 - (i * 50));
       ellipse(0, 0, 4 + (i / 5), 4 + (i / 5));
     }
     pop();
   }
+
 
   // Logic gates for which face to draw. Gives an even chance for any combination of face shapes and facetypes to drawn
   if (faceShape >= .5 && faceType >= .5) {
@@ -169,57 +223,6 @@ function drawFace1(waviness, faceShape, faceType, eyeType, eyePositionX, eyePosi
     square();
   }
 
-  //shadow
-  push();
-  translate(0, 5);
-
-  let shadowOpacity = 80 + (faceHeight * 10);
-  let shadowOpacityIncrement = shadowOpacity / 5;
-  let shadowColr = 91;
-  let shadowColg = 121;
-  let shadowColb = 148;
-
-
-  // Changes the colour of the shadow to be darker if the background colour is blue
-  if (backgroundCol < .2) {
-    shadowColr = 0;
-    shadowColg = 0;
-    shadowColb = 0;
-  }
-
-  fill(shadowColr, shadowColg, shadowColb, shadowOpacity);
-  noStroke();
-  ellipse(0, 0, 4, 1);
-  strokeWeight(.1)
-  noFill();
-
-  // Draws circles with stroke opacity decreasing to create a gradient
-  for (let i = .5; i <= 5; i++) {
-    stroke(shadowColr, shadowColg, shadowColb, shadowOpacity - (i * shadowOpacityIncrement));
-    ellipse(0, 0, 4 + (i / 5), 1 + (i / 5));
-  }
-  pop();
-
-
-  // Legs
-  noFill();
-  strokeWeight(.2);
-  stroke(242, 76, 61, 250);
-  strokeCap(ROUND);
-  strokeJoin(ROUND);
-
-  beginShape();
-  vertex(-.5, faceHeight);
-  vertex(-.5, 5);
-  vertex(-1, 5);
-  endShape();
-
-  beginShape();
-  vertex(.5, faceHeight);
-  vertex(.5, 5);
-  vertex(1, 5);
-  endShape();
-
 
 
 
@@ -238,10 +241,10 @@ function drawFace1(waviness, faceShape, faceType, eyeType, eyePositionX, eyePosi
 
     beginShape();
     vertex(-.5, 0);
-    bezierVertex(-.375, 0, -.375, .25, 0, .25);
-    bezierVertex(.375, .25, .375, 0, .5, 0);
-    bezierVertex(.375, 0, .375, -.25, 0, -.25);
-    bezierVertex(-.375, -.25, -.375, 0, -.5, 0);
+    bezierVertex(-.25, 0, -.25, .25, 0, .25);
+    bezierVertex(.25, .25, .25, 0, .5, 0);
+    bezierVertex(.25, 0, .25, -.25, 0, -.25);
+    bezierVertex(-.25, -.25, -.25, 0, -.5, 0);
     endShape();
   }
 

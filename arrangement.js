@@ -2,8 +2,8 @@
  * This program draws your arrangement of faces on the canvas.
  */
 
-const canvasWidth = 1920;
-const canvasHeight = 1920;
+const canvasWidth = 1080;
+const canvasHeight = 1080;
 let curRandomSeed = 0;
 
 
@@ -44,16 +44,16 @@ function draw () {
   background(bg_color1);
   noStroke();
 
-  let spacing = 250 * widthUnit;
+  let spacing =  width/2;
 
   //draw a grid of faces, spaced apart by exactly the width and height of each face.
-  for (let i=-spacing; i<=spacing; i+=spacing){ 
+  for (let i= -width/4; i<=spacing; i+=spacing){ 
       push();
       translate((width/2), 0);
       translate(i,0)
-    for (let z = -spacing; z<=0; z+=spacing) {
+    for (let z = -width/4; z<=height/2; z+=spacing) {
       push();
-      translate(0, (height/2)+spacing/2);
+      translate(0, (height/2));
       translate(0,z)
       scale(spacing/20);
       let faceShape = random(0,1);
